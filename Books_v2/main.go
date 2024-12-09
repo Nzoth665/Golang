@@ -53,7 +53,6 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	defer dir.Close()
 	files, err := dir.Readdir(-1)
 	if err != nil {
 		panic(err)
@@ -91,6 +90,9 @@ func main() {
 			panic(err)
 		}
 		tag.Close()
+		if m.Type == "music" {
+			m.AlbumName = "music"
+		}
 
 	L1:
 		err = os.Rename(musicAddres+"/"+file.Name(), "./"+m.AlbumName+"/"+m.TrackName+".mp3")
@@ -98,6 +100,18 @@ func main() {
 			os.Mkdir(m.AlbumName, 7089)
 			fmt.Println(m)
 			goto L1
-		}
+		} /*
+			f, err := os.Create(musicAddres + "/" + file.Name())
+			if err != nil {
+				panic(err)
+			}
+			f1, err := os.Open("./" + m.AlbumName + "/" + m.TrackName + ".mp3")
+			if err != nil {
+				panic(err)
+			}
+			_, err = io.Copy(f, f1)
+			if err != nil {
+				panic(err)
+			}*/
 	}
 }
