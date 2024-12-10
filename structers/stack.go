@@ -1,23 +1,27 @@
 package structers
 
 type Stack struct {
-	Massive []any
-	len     int
-	//capacity int
+	massive []any
+	Len     int
 }
 
 func (s *Stack) Get() any {
-	return s.Massive[s.len-1]
+	return s.massive[s.Len-1]
 }
 
 func (s *Stack) Put(a any) {
-	s.len += 1
-	s.Massive = append(s.Massive, a)
+	s.Len += 1
+	s.massive = append(s.massive, a)
 }
 
 func (s *Stack) Pop() {
-	if s.len-1 >= 0 {
-		s.len -= 1
-		s.Massive = s.Massive[:s.len-1]
+	if s.Len-1 >= 0 {
+		s.Len -= 1
+		s.massive = s.massive[:s.Len-1]
 	}
+}
+
+func (s *Stack) Clean() {
+	s.Len = 0
+	s.massive = []any{}
 }
