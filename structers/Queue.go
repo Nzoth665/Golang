@@ -1,25 +1,29 @@
 package structers
 
-type Query struct {
+type Queue struct {
 	massive     []any
 	firselement int
 	Len         int
 }
 
-func (q *Query) Get() any {
+func (q *Queue) Get() any {
 	return q.massive[q.firselement]
 }
 
-func (q *Query) Put(a any) {
+func (q *Queue) Put(a any) {
 	q.Len++
 	q.massive = append(q.massive, a)
 }
 
-func (q *Query) Pop() {
+func (q *Queue) Pop() {
 	q.firselement++
 	q.Len--
 }
 
-func (q *Query) Clear() {
+func (q *Queue) Clean() {
 	q.massive = q.massive[q.firselement : q.Len+q.firselement]
+}
+
+func (q *Queue) CleanAll() {
+	q.massive = []any{}
 }
