@@ -79,6 +79,9 @@ func check(s [2]int, m [][]int) []string {
 }
 
 func mazeGenerator(height int, width int, kq int) {
+	height += 1 - height%2
+	width += 1 - width%2
+	// КДС - Количество Дыр в Стенах
 	k := float64(kq) / 100.0
 	var matrix [][]int
 	var s1 []int

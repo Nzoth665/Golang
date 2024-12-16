@@ -1,27 +1,32 @@
 package structers
 
+// Стопка
 type Stack struct {
 	massive []any
-	Len     int
+	len     int
 }
 
+// Возращает верхний элемент стопки
 func (s *Stack) Get() any {
-	return s.massive[s.Len-1]
+	return s.massive[s.len-1]
 }
 
+// Кладёт элемент на верх стопки
 func (s *Stack) Put(a any) {
-	s.Len += 1
+	s.len += 1
 	s.massive = append(s.massive, a)
 }
 
+// Удаляет элемент с вершины стопки
 func (s *Stack) Pop() {
-	if s.Len-1 >= 0 {
-		s.Len -= 1
-		s.massive = s.massive[:s.Len-1]
+	if s.len-1 >= 0 {
+		s.len -= 1
+		s.massive = s.massive[:s.len]
 	}
 }
 
+// Удаляет все элементы в стопке
 func (s *Stack) Clean() {
-	s.Len = 0
+	s.len = 0
 	s.massive = []any{}
 }

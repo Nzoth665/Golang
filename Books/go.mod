@@ -1,4 +1,4 @@
-module books.max/books
+module main/books
 
 go 1.23.3
 

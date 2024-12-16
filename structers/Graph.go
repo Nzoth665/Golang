@@ -1,24 +1,22 @@
 package structers
 
-type AlGraph struct {
-	Graph map[int]map[int]int
-}
+// Представление графа в виде списка смежности (Список смежности)(Adjacency List)
+type ALGraph map[int]map[int]int
 
-type AMGraph struct {
-	Graph [][]int
-}
+// Табличное представление графа (Матрица смежности)(Adjacency Matrix)
+type AMGraph [][]int
 
 type Graph interface {
 	AMGraph
-	AlGraph
+	ALGraph
 }
 
-func (g AMGraph) AMtoAL() AlGraph {
-	gal := AlGraph{}
-	for i, e := range g.Graph {
+func (g AMGraph) AMtoAL() ALGraph {
+	gal := ALGraph{}
+	for i, e := range g {
 		for j, q := range e {
 			if q != 0 {
-				gal.Graph[i][j] = q
+				gal[i][j] = q
 			}
 		}
 	}
