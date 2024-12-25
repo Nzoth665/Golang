@@ -14,8 +14,9 @@ import (
 )
 
 const (
-	musicAddresC = "C:/Users/@USER@/AppData/Local/Packages/A025C540.Yandex.Music_vfvw9svesycw6/LocalState/Music/80e3b70ca63a2e69a01337e83c068452"
-	dbAddresC    = "C:/Users/@USER@/AppData/Local/Packages/A025C540.Yandex.Music_vfvw9svesycw6/LocalState/musicdb_80e3b70ca63a2e69a01337e83c068452.sqlite"
+	ad           = "80e3b70ca63a2e69a01337e83c068452"
+	musicAddresC = "C:/Users/@USER@/AppData/Local/Packages/A025C540.Yandex.Music_vfvw9svesycw6/LocalState/Music/" + ad
+	dbAddresC    = "C:/Users/@USER@/AppData/Local/Packages/A025C540.Yandex.Music_vfvw9svesycw6/LocalState/musicdb_" + ad + ".sqlite"
 	request      = "SELECT T_Track.Title AS Track_name, T_Album.Title AS Album, T_Album.ArtistsString AS Artist, T_Track.Type FROM T_Album JOIN T_Track JOIN T_TrackAlbum ON T_Track.Id = T_TrackAlbum.TrackId AND T_Album.Id = T_TrackAlbum.AlbumId AND T_Track.Id = $1"
 )
 

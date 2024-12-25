@@ -1,3 +1,3 @@
-module main/functions/usefulfunctions
+module functions/usefulfunctions
 
 go 1.23.3

@@ -29,7 +29,7 @@ func (p Pattern) Check(s string) bool {
 		case byte('_'):
 			continue
 		case byte('%'):
-			continue
+			continue // доделать
 		default:
 			if p[i-im] != byte(e) {
 				return false

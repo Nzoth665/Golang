@@ -1,3 +1,3 @@
-module main/GeneratorsAndHandlers
+module GeneratorsAndHandlers
 
 go 1.23.3
