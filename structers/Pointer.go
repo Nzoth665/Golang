@@ -6,16 +6,8 @@ type Pointer[T any] struct {
 }
 
 func (p *Pointer[T]) Next() {
-	if p.element+1 < len(*p.massive) {
+	if p.element < len(*p.massive) {
 		p.element++
-	}
-}
-
-func (p *Pointer[T]) Nexti(i int) {
-	if p.element+i < len(*p.massive) {
-		p.element += i
-	} else if p.element < len(*p.massive) && len(*p.massive) < p.element+i {
-		p.element = len(*p.massive) - 1
 	}
 }
 
@@ -24,6 +16,16 @@ func (p *Pointer[T]) Get() T {
 	return m[p.element]
 }
 
-func (p *Pointer[T]) ILE() bool { return len(*p.massive)-1 == p.element }
+func (p *Pointer[T]) ILE() bool { return len(*p.massive) == p.element }
 
+// ///////////////////////////////////////////////////////////////////////////////////////
 type Pointers[T any] []Pointer[T]
+
+// int|int16|int32|int64|int8|float32|float64|complex128|complex64
+type PointersNum[T int | int16 | int32 | int64 | int8 | float32 | float64] []Pointer[T]
+
+func (a PointersNum[T]) Len() int      { return len(a) }
+func (a PointersNum[T]) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
+func (a PointersNum[T]) Less(i, j int) bool {
+	return (*a[i].massive)[a[i].element] < (*a[j].massive)[a[j].element]
+}

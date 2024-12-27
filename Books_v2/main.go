@@ -30,13 +30,19 @@ type metadata struct {
 }
 
 func (m *metadata) bookPandler() {
+	defer func() {
+		e := recover()
+		if e != nil {
+			fmt.Println("Error with formatting book chapter!")
+		}
+	}()
 	if m.Type == "audiobook" {
 		t := strings.Replace(strings.Replace(m.TrackName, "«", "~", 1), "»", "~", 1)
 		q := strings.Split(t, "~")
 		num := strings.Split(q[2], " ")[2]
 		m.Num = strings.Repeat("0", 2-len(num)) + num
 		m.Autor = strings.Replace(q[0], ". ", "", 1)
-		m.TrackName = q[1] + ". Часть " + m.Num
+		m.TrackName = q[1] + ". Глава " + m.Num
 		m.AlbumName = q[1]
 	}
 }
@@ -99,7 +105,7 @@ func main() {
 		err = os.Rename(musicAddres+"/"+file.Name(), "./"+m.AlbumName+"/"+m.TrackName+".mp3")
 		if err != nil {
 			os.Mkdir(m.AlbumName, 7089)
-			fmt.Println(m)
+			fmt.Println(m.AlbumName)
 			goto L1
 		} /*
 			f, err := os.Create(musicAddres + "/" + file.Name())
