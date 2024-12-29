@@ -41,9 +41,15 @@ func main() {
 	reader := bufio.NewReader(os.Stdin)
 	v := false
 
-	fmt.Println("Comands:\n1) delete\n\t1.1) all\n\t1.2) words\n\t\t1.2.1) first\n\t\t1.2.2) end\n\t\t1.2.3) center\n2) replace\n3) move\n\t3.1) to\n\t3.2) now\n\t3.3) out\n4) end or exit\n")
+	fmt.Print("Comands:\n1) delete\n\t1.1) all\n\t1.2) words\n\t\t1.2.1) first\n\t\t1.2.2) end\n\t\t1.2.3) center\n2) replace\n3) move\n\t3.1) to\n\t3.2) now\n\t3.3) out\n4) end or exit\n\n")
 
 	for {
+		defer func() {
+			r := recover()
+			if r != nil {
+				fmt.Println("This command invalid")
+			}
+		}()
 		request := strings.Split(input(reader), " ")
 
 		switch request[0] {
