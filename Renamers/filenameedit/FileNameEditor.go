@@ -31,7 +31,6 @@ func dir_init(dirname string) (dir *os.File, files []os.FileInfo) {
 	files = slices.DeleteFunc(files, func(f os.FileInfo) bool {
 		return (f.Name() == "FileNameEditor.go" || f.Name() == "renamer.exe")
 	})
-	//fmt.Println(files)
 	return
 }
 
@@ -164,8 +163,42 @@ func main() {
 			dir, files = dir_init(dir.Name())
 			fmt.Println("\"update\": OK")
 
+		case "add":
+			i := ""
+			fmt.Scan(&i)
+			switch request[1] {
+			case "first":
+				for _, e := range files {
+					if e.IsDir() {
+						continue
+					}
+					os.Rename(path.Join(dir.Name(), e.Name()), path.Join(dir.Name(), i+e.Name()))
+				}
+			case "end":
+				for _, e := range files {
+					if e.IsDir() {
+						continue
+					}
+					os.Rename(path.Join(dir.Name(), e.Name()), path.Join(dir.Name(), e.Name()+i))
+				}
+			/*case "center":
+			j := 0
+			fmt.Scan(&j)
+			for _, e := range files {
+				if e.IsDir() {
+					continue
+				}
+				m := strings.Split(e.Name(), " ")
+				os.Rename(path.Join(dir.Name(), e.Name()), path.Join(dir.Name(), strings.Join(append(m[:i], m[j:]...), " ")))
+			}*/
+			default:
+				f()
+			}
+			v = true
+
 		case "end", "exit":
 			return
+
 		default:
 			f()
 		}
