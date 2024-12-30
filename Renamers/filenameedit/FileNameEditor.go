@@ -2,12 +2,16 @@ package main
 
 import (
 	"bufio"
+	_ "embed"
 	"fmt"
 	"os"
 	"path"
 	"slices"
 	"strings"
 )
+
+//go:embed Comands
+var codes string
 
 func input(reader *bufio.Reader) string {
 	text, err := reader.ReadString('\n')
@@ -34,6 +38,19 @@ func dir_init(dirname string) (dir *os.File, files []os.FileInfo) {
 	return
 }
 
+func f1(s1, s2 string) string {
+	i := 0
+	for j, e := range s1 {
+		if e == '.' {
+			i = j
+		}
+	}
+	if i == 0 {
+		return s1 + s2
+	}
+	return s1[:i] + s2 + s1[i:]
+}
+
 func main() {
 	dir, files := dir_init(".")
 
@@ -46,7 +63,8 @@ func main() {
 		v = false
 	}
 
-	fmt.Print("Comands:\n1) delete\n\t1.1) all\n\t1.2) words\n\t\t1.2.1) first\n\t\t1.2.2) end\n\t\t1.2.3) center\n2) replace\n3) content\n4) update\n5) move\n\t5.1) to\n\t5.2) now\n\t5.3) out\n6) end or exit\n\n")
+	//"Comands:\n1) delete\n\t1.1) all\n\t1.2) words\n\t\t1.2.1) first\n\t\t1.2.2) end\n\t\t1.2.3) center\n2) replace\n3) content\n4) update\n5) move\n\t5.1) to\n\t5.2) now\n\t5.3) out\n6) end or exit\n\n"
+	fmt.Print(codes)
 
 	defer func() {
 		r := recover()
@@ -150,6 +168,7 @@ func main() {
 			fmt.Println("\"replace\": OK")
 
 		case "content":
+			dir, files = dir_init(dir.Name())
 			for i, e := range files {
 				fmt.Printf("%d) %s", i, e.Name())
 				if e.IsDir() {
@@ -159,13 +178,12 @@ func main() {
 				}
 			}
 
-		case "update":
-			dir, files = dir_init(dir.Name())
-			fmt.Println("\"update\": OK")
+		/*case "update":
+		dir, files = dir_init(dir.Name())
+		fmt.Println("\"update\": OK")*/
 
 		case "add":
-			i := ""
-			fmt.Scan(&i)
+			i := input(reader)
 			switch request[1] {
 			case "first":
 				for _, e := range files {
@@ -179,7 +197,7 @@ func main() {
 					if e.IsDir() {
 						continue
 					}
-					os.Rename(path.Join(dir.Name(), e.Name()), path.Join(dir.Name(), e.Name()+i))
+					os.Rename(path.Join(dir.Name(), e.Name()), path.Join(dir.Name(), f1(e.Name(), i)))
 				}
 			/*case "center":
 			j := 0
@@ -195,6 +213,7 @@ func main() {
 				f()
 			}
 			v = true
+			fmt.Println("\"add\": OK")
 
 		case "end", "exit":
 			return
