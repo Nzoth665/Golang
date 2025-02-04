@@ -107,18 +107,6 @@ func main() {
 			os.Mkdir(m.AlbumName, 7089)
 			fmt.Println(m.AlbumName)
 			goto L1
-		} /*
-			f, err := os.Create(musicAddres + "/" + file.Name())
-			if err != nil {
-				panic(err)
-			}
-			f1, err := os.Open("./" + m.AlbumName + "/" + m.TrackName + ".mp3")
-			if err != nil {
-				panic(err)
-			}
-			_, err = io.Copy(f, f1)
-			if err != nil {
-				panic(err)
-			}*/
+		}
 	}
 }
